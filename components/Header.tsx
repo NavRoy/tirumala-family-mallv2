@@ -158,7 +158,9 @@ shadow-[0_10px_30px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]">
       <Link href="/collections/women" onClick={() => setMenuOpen(false)}>Women</Link>
       <Link href="/collections/men" onClick={() => setMenuOpen(false)}>Men</Link>
       <Link href="/collections/kids" onClick={() => setMenuOpen(false)}>Kids</Link>
-
+<Link href="/collections/insta-live" onClick={() => setMenuOpen(false)}>
+  Insta Live
+</Link>
       <Link
         href="/collections/sale"
         className="text-[#CC0000] font-semibold"

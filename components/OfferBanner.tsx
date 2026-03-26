@@ -16,7 +16,7 @@ export default function OfferBanner() {
           </p>
 
           <h2 className="text-[30px] sm:text-[34px] font-semibold text-black tracking-[0.05em]">
-            Explore Categories
+            Discover Your Style
           </h2>
 
           <div className="w-12 h-[2px] bg-[#CC0000] mt-4 mx-auto rounded-full"></div>
@@ -52,7 +52,7 @@ export default function OfferBanner() {
                 </p>
 
                 <h3 className="text-[22px] font-semibold mb-2">
-                  Women's Collection
+                  Women's Edit
                 </h3>
 
                 <span className="text-[12px] tracking-[0.2em] uppercase border-b border-white pb-1">
@@ -79,11 +79,11 @@ export default function OfferBanner() {
 
               <div className="absolute bottom-6 left-6 text-white">
                 <p className="text-[10px] tracking-[0.4em] uppercase opacity-80 mb-2">
-                  Classic Styles
+                  MODERN CLASSICS
                 </p>
 
                 <h3 className="text-[22px] font-semibold mb-2">
-                  Men's Collection
+                  Men's Edit
                 </h3>
 
                 <span className="text-[12px] tracking-[0.2em] uppercase border-b border-white pb-1">
@@ -112,11 +112,11 @@ export default function OfferBanner() {
 
             <div className="absolute bottom-6 left-6 text-white">
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-80 mb-2">
-                Boys & Girls
+                PLAYFUL PICKS
               </p>
 
               <h3 className="text-[20px] font-semibold mb-2">
-                Kids Collection
+                Kids Edit
               </h3>
 
               <span className="text-[12px] tracking-[0.2em] uppercase border-b border-white pb-1">

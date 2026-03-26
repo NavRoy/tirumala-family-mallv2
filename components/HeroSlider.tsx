@@ -5,9 +5,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
 const SLIDES = [
-  { id: 1, img: '/banners/wome-banner1.png', alt: 'Saree Collection', href: '/collections/women' },
+  { id: 1, img: '/banners/festival-wear-banner.png', alt: 'Saree Collection', href: '/collections/women' },
   { id: 2, img: '/banners/kids-banner.png', alt: 'New Arrivals', href: '/collections/kids' },
-  { id: 3, img: '/banners/wome-banner1.png', alt: 'Festive Wear', href: '/collections/women' },
+  { id: 3, img: '/banners/wome-banner2.png', alt: 'Festive Wear', href: '/collections/women' },
   { id: 4, img: '/banners/kids-banner.png', alt: 'Exclusive Deals', href: '/collections/kids' },
 ]
 

@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* RESET */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  background: #ffffff;
+  color: #111;
+}
+
+/* 🔥 DESIGN SYSTEM (THIS IS THE MAGIC) */
+:root {
+  --primary: #CC0000;
+  --text-main: #111;
+  --text-light: #666;
+  --border-light: #eee;
+}
+
+/* SECTION */
+.section {
+  padding: 70px 0;
+  background: #fff;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* TITLE STYLE (USE EVERYWHERE) */
+.section-title {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+}
+
+.section-sub {
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.section-line {
+  width: 40px;
+  height: 2px;
+  background: var(--primary);
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+/* CARD */
+.card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+/* BUTTON */
+.btn-link {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2px;
+  transition: all 0.3s;
+}
+
+.btn-link:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}

@@ -1,22 +1,25 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import './globals.css'
+
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
 import WishlistDrawer from '@/components/WishlistDrawer'
 import BottomNav from '@/components/BottomNav'
 
-const geist = Geist({
+const poppins = Poppins({
   subsets: ['latin'],
-  variable: '--font-sans',
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 
 export const metadata: Metadata = {
   title: 'Tirumala Family Mall — Tekkali, Srikakulam',
-  description: 'Premium fashion for Women, Men & Kids. Shop Sarees, Kurtis, Nighties, Shirts, Jeans and more. Free shipping above ₹999. Cash on delivery available.',
-  keywords: 'sarees, kurtis, dress materials, nighties, men shirts, kids wear, Tekkali, Srikakulam, Andhra Pradesh',
+  description:
+    'Premium fashion for Women, Men & Kids. Shop Sarees, Kurtis, Nighties, Shirts, Jeans and more. Free shipping above ₹999. Cash on delivery available.',
+  keywords:
+    'sarees, kurtis, dress materials, nighties, men shirts, kids wear, Tekkali, Srikakulam, Andhra Pradesh',
   openGraph: {
     title: 'Tirumala Family Mall',
     description: 'Complete fashion destination for the entire family',
@@ -31,17 +34,29 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="bg-white text-gray-900 antialiased">
+
+      <body className={`${poppins.className} bg-white text-[#111] antialiased`}>
+
+        {/* HEADER */}
         <Header />
+
+        {/* MAIN CONTENT */}
         <main className="min-h-screen">{children}</main>
+
+        {/* MOBILE NAV */}
         <BottomNav />
+
+        {/* FOOTER */}
         <Footer />
+
+        {/* DRAWERS */}
         <CartDrawer />
         <WishlistDrawer />
+
       </body>
     </html>
   )

@@ -23,23 +23,23 @@ export default function ProductCard({ product, idx = 0 }: { product: Product; id
   const placeholderBg = PLACEHOLDER_COLORS[idx % PLACEHOLDER_COLORS.length]
 
   return (
-    <div className="group rounded-xl overflow-hidden bg-white 
+    <div className="group rounded-lg overflow-hidden bg-white 
 shadow-[0_10px_30px_rgba(0,0,0,0.05)]
 hover:shadow-[0_25px_60px_rgba(0,0,0,0.1)]
 hover:-translate-y-1 transition-all duration-300">
       {/* Image area */}
       <div
-        className="relative overflow-hidden rounded-lg mb-3  w-full h-full object-cover group-hover:scale-105 transition duration-500 "
-        style={{ aspectRatio: '3/4' }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
+  className="relative overflow-hidden rounded-md mb-3"
+  style={{ aspectRatio: '3/4' }}
+  onMouseEnter={() => setHovered(true)}
+  onMouseLeave={() => setHovered(false)}
+>
         {/* Placeholder — replace with next/image */}
         <Link href={product.href} className="block w-full h-full">
   <img
     src={product.image || 'https://via.placeholder.com/400x500'}
     alt={product.name}
-    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
   />
 </Link>
 
@@ -58,9 +58,13 @@ hover:-translate-y-1 transition-all duration-300">
         </div>
 
         {/* Wishlist */}
-        <button
-          onClick={() => setWished(!wished)}
-          className={`absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 ${wished ? 'bg-red-50 border border-red-200' : 'bg-white/80 border border-gray-200 opacity-0 group-hover:opacity-100'}`}
+       <button
+  onClick={(e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setWished(!wished)
+  }}
+          className={`absolute top-2 right-2 z-10 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 ${wished ? 'bg-red-50 border border-red-200' : 'bg-white/80 border border-gray-200 opacity-0 group-hover:opacity-100'}`}
           aria-label="Wishlist"
         >
           <Heart size={12} className={wished ? 'fill-red-500 text-red-500' : 'text-gray-500'} />
@@ -69,7 +73,7 @@ hover:-translate-y-1 transition-all duration-300">
 
       {/* Info */}
       <Link href={product.href} className="block">
-        <p className="text-[13px] text-gray-800 font-medium leading-snug line-clamp-2 mb-1.5 hover:text-gray-900 transition-colors">{product.name}</p>
+       <p className="text-[13px] text-gray-900 font-medium leading-snug line-clamp-2 mt-2 hover:text-gray-900 transition-colors">{product.name}</p>
         <div className="flex items-center gap-2">
           <span className="text-[14px] font-semibold text-gray-900">₹{product.price.toLocaleString('en-IN')}</span>
           {product.originalPrice && <span className="text-[12px] text-gray-400 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</span>}

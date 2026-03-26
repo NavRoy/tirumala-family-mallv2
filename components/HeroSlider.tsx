@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
 const SLIDES = [
-  { id: 1, img: '/banners/wome-banner1.png', alt: 'Saree Collection' },
-  { id: 2, img: '/banners/kids-banner.png', alt: 'New Arrivals' },
-  { id: 3, img: '/banners/wome-banner1.png', alt: 'Festive Wear' },
-  { id: 4, img: '/banners/kids-banner.png', alt: 'Exclusive Deals' },
+  { id: 1, img: '/banners/wome-banner1.png', alt: 'Saree Collection', href: '/collections/women' },
+  { id: 2, img: '/banners/kids-banner.png', alt: 'New Arrivals', href: '/collections/kids' },
+  { id: 3, img: '/banners/wome-banner1.png', alt: 'Festive Wear', href: '/collections/women' },
+  { id: 4, img: '/banners/kids-banner.png', alt: 'Exclusive Deals', href: '/collections/kids' },
 ]
 
 export default function HeroSlider() {
@@ -15,6 +16,7 @@ export default function HeroSlider() {
   const [prev, setPrev] = useState<number | null>(null)
   const [dir, setDir] = useState<1 | -1>(1)
   const [drag, setDrag] = useState<number | null>(null)
+const [isDragging, setIsDragging] = useState(false)
 
   const go = useCallback((next: number, direction: 1 | -1 = 1) => {
     setDir(direction)
@@ -32,15 +34,23 @@ export default function HeroSlider() {
   })
 
   /* swipe */
-  const onTouchStart = (e: React.TouchEvent) => setDrag(e.touches[0].clientX)
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (drag === null) return
-    const d = drag - e.changedTouches[0].clientX
-    if (Math.abs(d) > 50) {
-      d > 0 ? next() : go((curr - 1 + SLIDES.length) % SLIDES.length, -1)
-    }
-    setDrag(null)
+const onTouchStart = (e: React.TouchEvent) => {
+  setDrag(e.touches[0].clientX)
+  setIsDragging(false)
+}
+
+const onTouchEnd = (e: React.TouchEvent) => {
+  if (drag === null) return
+
+  const d = drag - e.changedTouches[0].clientX
+
+  if (Math.abs(d) > 50) {
+    setIsDragging(true)
+    d > 0 ? next() : go((curr - 1 + SLIDES.length) % SLIDES.length, -1)
   }
+
+  setDrag(null)
+}
 
   return (
     <div
@@ -54,9 +64,13 @@ export default function HeroSlider() {
         const isLeaving = i === prev
 
         return (
-          <div
-            key={slide.id}
-            className="absolute inset-0 transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+         <Link
+  key={slide.id}
+  href={slide.href}
+  onClick={(e) => {
+    if (isDragging) e.preventDefault()
+  }}
+            className="absolute inset-0 block transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
             style={{
               opacity: isActive ? 1 : isLeaving ? 0 : 0,
               transform: isActive
@@ -76,7 +90,7 @@ export default function HeroSlider() {
 
             {/* PREMIUM OVERLAY */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-          </div>
+          </Link>
         )
       })}
 

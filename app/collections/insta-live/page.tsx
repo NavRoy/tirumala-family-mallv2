@@ -3,10 +3,21 @@
 import { Instagram, Play } from 'lucide-react'
 import ProductCard, { Product } from '@/components/ProductCard'
 
+const IMAGES = [
+  'https://images.unsplash.com/photo-1520975922284-7b06c0f3c8e3?w=500',
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500',
+  'https://images.unsplash.com/photo-1521334884684-d80222895322?w=500',
+  'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500',
+]
+
 const PRODUCTS: Product[] = Array.from({ length: 12 }, (_, i) => ({
-  id: `il${i}`, name: `Insta Live Special ${i + 1}`, price: 699 + i * 100,
+  id: `il${i}`,
+  name: `Insta Live Special ${i + 1}`,
+  price: 699 + i * 100,
   originalPrice: i % 2 === 0 ? 699 + i * 100 + 250 : undefined,
-  image: '', href: `/products/insta-${i}`, badge: i < 3 ? 'Live' : undefined,
+  image: IMAGES[i % IMAGES.length],
+  href: `/products/insta-${i}`,
+  badge: i < 3 ? 'Live' : undefined,
 }))
 
 export default function InstaLivePage() {

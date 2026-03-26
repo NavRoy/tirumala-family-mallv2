@@ -81,11 +81,12 @@ export default function ProductPage() {
               ))}
             </div>
 
-            <div className="flex-1 rounded-2xl overflow-hidden bg-[#f5f5f5]">
-              <img
-                src={IMAGES[imgIdx]}
-                className="w-full h-full object-cover hover:scale-105 transition duration-700"
-              />
+            <div className="flex-1 rounded-2xl overflow-hidden bg-[#f5f5f5] 
+shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+             <img
+  src={IMAGES[imgIdx]}
+  className="w-full h-full object-cover hover:scale-110 transition duration-700 ease-out"
+/>
             </div>
 
           </div>
@@ -93,7 +94,7 @@ export default function ProductPage() {
           {/* PRODUCT INFO */}
           <div>
 
-            <h1 className="text-[32px] lg:text-[40px] font-semibold tracking-[0.04em]">
+            <h1 className="text-[34px] lg:text-[44px] font-semibold tracking-[0.05em] leading-tight">
               Silk Blend Designer Saree
             </h1>
 
@@ -106,7 +107,7 @@ export default function ProductPage() {
             </div>
 
             {/* PRICE */}
-            <div className="flex items-center gap-3 mt-6 pb-6 border-b">
+           <div className="flex items-center gap-4 mt-6 pb-6 border-b border-gray-100">
               <span className="text-[30px] font-semibold">₹1,299</span>
               <span className="line-through text-gray-400">₹1,599</span>
               <span className="text-[#CC0000] text-[12px]">19% OFF</span>
@@ -120,9 +121,11 @@ export default function ProductPage() {
                   <button
                     key={s}
                     onClick={() => setSize(s)}
-                    className={`w-12 h-12 rounded-full border ${
-                      size === s ? 'bg-black text-white' : 'border-gray-300'
-                    }`}
+                    className={`w-12 h-12 rounded-full border transition ${
+  size === s
+    ? 'bg-black text-white shadow-md'
+    : 'border-gray-300 hover:border-black'
+}`}
                   >
                     {s}
                   </button>
@@ -155,7 +158,10 @@ export default function ProductPage() {
                   })
                   openCart()
                 }}
-                className="flex-1 h-[50px] bg-black text-white rounded-full hover:bg-[#CC0000] transition"
+                className="flex-1 h-[52px] bg-black text-white rounded-full 
+tracking-[0.2em] text-[12px] uppercase
+shadow-[0_15px_40px_rgba(0,0,0,0.2)]
+hover:bg-[#CC0000] transition-all duration-300"
               >
                 Add to Cart
               </button>
@@ -163,7 +169,8 @@ export default function ProductPage() {
               {/* WISHLIST */}
               <button
                 onClick={() => toggle(product)}
-                className="w-[50px] h-[50px] border rounded-full flex items-center justify-center"
+                className="w-[50px] h-[50px] border rounded-full flex items-center justify-center 
+hover:shadow-md transition"
               >
                 <Heart
                   className={`transition ${
@@ -181,12 +188,14 @@ export default function ProductPage() {
 
             </div>
 
-            <button className="w-full mt-4 h-[50px] border border-black rounded-full hover:bg-black hover:text-white transition">
+            <button className="w-full mt-4 h-[52px] border border-black rounded-full 
+tracking-[0.2em] text-[12px] uppercase
+hover:bg-black hover:text-white transition-all duration-300">
               Buy Now
             </button>
 
             {/* TRUST */}
-            <div className="grid grid-cols-3 gap-4 mt-10 text-center text-[12px] text-gray-600">
+            <div className="grid grid-cols-3 gap-6 mt-10 text-center text-[12px] text-gray-600">
               <div><Truck size={18}/> Free Shipping</div>
               <div><RefreshCw size={18}/> Easy Returns</div>
               <div><ShieldCheck size={18}/> Authentic</div>
@@ -196,7 +205,7 @@ export default function ProductPage() {
             <div className="mt-10 border-t">
               {DETAILS.map(({ q, a }) => (
                 <div key={q} className="border-b">
-                  <button onClick={() => setOpenQ(openQ === q ? null : q)} className="w-full flex justify-between py-4">
+                  <button onClick={() => setOpenQ(openQ === q ? null : q)} className="w-full flex justify-between py-5 text-[14px]">
                     {q}
                     <ChevronDown className={`${openQ === q ? 'rotate-180' : ''}`} />
                   </button>
@@ -212,7 +221,7 @@ export default function ProductPage() {
         {/* RELATED */}
         <div className="mt-16">
           <h2 className="text-[24px] font-semibold mb-6">You May Also Like</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-6">
             {RELATED.map((p, i) => <ProductCard key={p.id} product={p} idx={i} />)}
           </div>
         </div>

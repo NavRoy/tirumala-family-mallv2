@@ -19,13 +19,13 @@ export default function InstagramReels() {
         <div className="flex items-end justify-between mb-12">
 
           <div>
-            <p className="text-[10px] tracking-[0.45em] uppercase text-gray-400 mb-2">
-              Follow Us
-            </p>
+           <p className="text-[10px] tracking-[0.45em] uppercase text-gray-400 mb-2">
+  Follow Us
+</p>
 
-            <h2 className="text-[24px] sm:text-[28px] font-semibold text-black tracking-[0.04em]">
-              @tirumalafamilymall777
-            </h2>
+<h2 className="heading-serif italic text-[24px] sm:text-[28px] md:text-[32px] font-normal tracking-[0.08em] leading-[1.1] text-black">
+  @tirumalafamilymall777
+</h2>
 
             <div className="w-12 h-[2px] bg-[#CC0000] mt-3 rounded-full"></div>
           </div>
@@ -146,7 +146,7 @@ transition-all duration-300"
 
         </div>
 
-        {/* 🔥 PREMIUM CENTER BUTTON */}
+        {/* 🔥 PREMIUM CENTER BUTTON 
         <div className="flex justify-center mt-16">
 
           <a
@@ -172,7 +172,7 @@ transition-all duration-300"
             📸 Follow @tirumalafamilymall777
           </a>
 
-        </div>
+        </div> */}
 
       </div>
 

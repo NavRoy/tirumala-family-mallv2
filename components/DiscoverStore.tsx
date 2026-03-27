@@ -67,9 +67,11 @@ export default function DiscoverStore() {
                 Visit Us
               </p>
 
-              <h2 className="text-[24px] sm:text-[30px] lg:text-[34px] font-semibold text-black tracking-[0.04em]">
-                Discover Our Store
-              </h2>
+              <h2
+  className="heading-serif italic font-normal text-[30px] sm:text-[34px] md:text-[40px] lg:text-[44px] tracking-[0.12em] leading-[1.1] text-[#2a2a2a]"
+>
+  Discover Our Store
+</h2>
 
               <div className="w-12 h-[2px] bg-[#CC0000] mt-3 rounded-full mx-auto lg:mx-0"></div>
             </div>

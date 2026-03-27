@@ -11,13 +11,13 @@ export default function OfferBanner() {
         {/* 🔥 HEADER (MATCHING YOUR SITE STYLE) */}
         <div className="text-center mb-14">
 
-          <p className="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-3">
-            Collections
-          </p>
+         <p className="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-3">
+  Collections
+</p>
 
-          <h2 className="text-[30px] sm:text-[34px] font-semibold text-black tracking-[0.05em]">
-            Discover Your Style
-          </h2>
+<h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] font-normal tracking-[0.12em] leading-[1.1] text-black">
+  Discover Your Style
+</h2>
 
           <div className="w-12 h-[2px] bg-[#CC0000] mt-4 mx-auto rounded-full"></div>
 

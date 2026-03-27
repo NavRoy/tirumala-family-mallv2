@@ -42,12 +42,12 @@ export default function CategoryHighlight() {
 
           <div>
             <p className="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-3">
-              Trending
-            </p>
+  Trending
+</p>
 
-            <h2 className="text-[30px] sm:text-[34px] font-semibold text-[#0f172a] tracking-[0.04em]">
-              New Season Picks
-            </h2>
+<h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] font-normal tracking-[0.12em] leading-[1.1] text-[#0f172a]">
+  New Season Picks
+</h2>
 
             <div className="w-12 h-[2px] bg-[#CC0000] mt-4 rounded-full"></div>
           </div>

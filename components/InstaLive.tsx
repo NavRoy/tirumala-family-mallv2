@@ -80,12 +80,12 @@ export default function InstaLive() {
 
           <div>
             <p className="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-3">
-              Live Shopping
-            </p>
+  Live Shopping
+</p>
 
-            <h2 className="text-[28px] sm:text-[30px] font-semibold text-black tracking-[0.06em]">
-              Insta Live
-            </h2>
+<h2 className="heading-serif italic text-[28px] sm:text-[32px] md:text-[36px] font-normal tracking-[0.12em] leading-[1.1] text-black">
+  Insta Live
+</h2>
 
             {/* RED ACCENT */}
             <div className="w-10 h-[2px] bg-[#CC0000] mt-3 rounded-full" />

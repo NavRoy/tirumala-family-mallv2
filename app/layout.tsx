@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Poppins, Cormorant_Garamond } from 'next/font/google'
 import './globals.css'
 
 import Header from '@/components/Header'
@@ -8,11 +8,20 @@ import CartDrawer from '@/components/CartDrawer'
 import WishlistDrawer from '@/components/WishlistDrawer'
 import BottomNav from '@/components/BottomNav'
 
+/* BODY FONT */
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   display: 'swap',
+  variable: '--font-sans',
 })
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+})
+
 
 export const metadata: Metadata = {
   title: 'Tirumala Family Mall — Tekkali, Srikakulam',
@@ -34,12 +43,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${poppins.variable} ${cormorant.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
 
-      <body className={`${poppins.className} bg-white text-[#111] antialiased`}>
+      <body className="bg-white text-[#111] antialiased font-sans">
 
         {/* HEADER */}
         <Header />

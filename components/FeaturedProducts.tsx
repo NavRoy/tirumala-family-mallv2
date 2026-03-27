@@ -166,12 +166,12 @@ export default function FeaturedProducts() {
 
           <div>
             <p className="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-3">
-              Explore
-            </p>
+  Explore
+</p>
 
-            <h2 className="text-[28px] sm:text-[30px] font-semibold text-black tracking-[0.06em]">
-              Our Collection
-            </h2>
+<h2 className="heading-serif italic text-[28px] sm:text-[32px] md:text-[36px] font-normal tracking-[0.12em] leading-[1.1] text-black">
+  Our Collection
+</h2>
 
             <div className="w-12 h-[2px] bg-[#CC0000] mt-4 rounded-full"></div>
           </div>

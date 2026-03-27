@@ -26,11 +26,11 @@ export default function ShopByCategory() {
 
         {/* HEADER */}
         <div className="mb-10 text-center">
-          <h2 className="text-[28px] sm:text-[34px] font-semibold text-black tracking-[0.04em]">
+          <h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] lg:text-[44px] font-normal tracking-[0.12em] leading-[1.1] text-black">
   Shop by Category
 </h2>
 
-<div className="w-12 h-[2px] bg-[#CC0000] mt-4 mx-auto rounded-full"></div>
+<div className="w-14 h-[3px] bg-[#CC0000] mt-4 mx-auto rounded-full"></div>
         </div>
 
         {/* GRID */}

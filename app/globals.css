@@ -28,6 +28,25 @@ body {
   --bg-soft: #fafafa;
 }
 
+
+/* 🔥 FONT SYSTEM */
+/* 🔥 OVERRIDE TAILWIND serif */
+.font-serif {
+  font-family: var(--font-serif), serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* 🔥 CUSTOM SERIF FONT */
+.font-serif {
+  font-family: var(--font-serif), serif;
+}
+.heading-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
 /* SECTION */
 .section {
   padding: 80px 0;

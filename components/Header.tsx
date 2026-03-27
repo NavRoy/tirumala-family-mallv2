@@ -9,7 +9,6 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
-  /* 🔥 listen from bottom nav */
   useEffect(() => {
     const open = () => setSearchOpen(true)
     window.addEventListener('openSearch', open)
@@ -18,15 +17,12 @@ export default function Header() {
 
   return (
     <>
-
-    
-      {/* HEADER */}
-    <header className="sticky top-0 z-50 bg-white border-b border-[#f1f1f1]
-shadow-[0_10px_30px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]">
+      {/* 🔥 PREMIUM HEADER */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-[#f1f1f1] shadow-[0_8px_30px_rgba(0,0,0,0.05)]">
 
         <div className="max-w-[1400px] mx-auto px-4 lg:px-6 relative">
 
-          <div className="flex items-center justify-between h-[72px] lg:h-[95px]">
+          <div className="flex items-center justify-between h-[75px] lg:h-[95px]">
 
             {/* LEFT */}
             <div className="flex items-center gap-3 pl-2 lg:pl-0 w-[120px] lg:w-auto">
@@ -34,7 +30,7 @@ shadow-[0_10px_30px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]">
               {/* MOBILE MENU */}
               <button
                 onClick={() => setMenuOpen(true)}
-                className="lg:hidden w-[38px] h-[38px] flex items-center justify-center rounded-full bg-gray-100"
+                className="lg:hidden translate-x-[3px] w-[40px] h-[40px] flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
               >
                 <div className="grid grid-cols-3 gap-[3px]">
                   {[...Array(9)].map((_, i) => (
@@ -44,74 +40,94 @@ shadow-[0_10px_30px_rgba(0,0,0,0.06),0_2px_8px_rgba(0,0,0,0.04)]">
               </button>
 
               {/* NAV */}
-              <nav className="hidden lg:flex items-center gap-10 text-[13px] tracking-[0.18em] font-medium text-gray-600">
+              <nav className="hidden lg:flex items-center gap-12 text-[13px] tracking-[0.16em] font-medium text-gray-600">
                 {['Women','Men','Kids','Insta Live'].map((item) => (
-                  <Link key={item} href={`/collections/${item.toLowerCase().replace(' ', '-')}`} className="group relative">
-                    <span className="group-hover:text-black transition">{item}</span>
-                    <span className="absolute left-0 -bottom-[6px] h-[2px] w-0 bg-[#CC0000] transition-all duration-300 group-hover:w-full"></span>
+                  <Link
+                    key={item}
+                    href={`/collections/${item.toLowerCase().replace(' ', '-')}`}
+                    className="group relative"
+                  >
+                    <span className="group-hover:text-black transition">
+                      {item}
+                    </span>
+
+                    {/* PREMIUM UNDERLINE */}
+                    <span className="absolute left-0 -bottom-[8px] h-[2px] w-0 bg-gradient-to-r from-[#CC0000] to-transparent transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                 ))}
+
                 <Link href="/collections/sale" className="text-[#CC0000] font-semibold">
                   Sale
                 </Link>
               </nav>
-
             </div>
 
             {/* RIGHT */}
             <div className="flex items-center gap-3">
 
-              {/* ACCOUNT */}
-              <Link href="/account"
-                className="hidden lg:flex w-[38px] h-[38px] items-center justify-center rounded-full bg-white border border-gray-100 shadow-[0_6px_18px_rgba(0,0,0,0.06)]"
-              >
-                <User className="w-[18px] h-[18px] text-gray-600" />
-              </Link>
+              {/* ICON STYLE */}
+              {[
+  { icon: User, link: '/account', hideMobile: true },
+  { icon: Search, action: () => setSearchOpen(true), hideMobile: true },
+  { icon: Heart, link: '/wishlist' },
+  { icon: ShoppingBag, link: '/cart' }
+].map((item, i) => {
+  const Icon = item.icon
 
-              {/* 🔥 SEARCH */}
-             <button
-  onClick={() => setSearchOpen(true)}
-  className="hidden lg:flex w-[38px] h-[38px] items-center justify-center rounded-full bg-white border border-gray-100 shadow-[0_6px_18px_rgba(0,0,0,0.06)]"
->
-  <Search className="w-[18px] h-[18px] text-gray-600" />
-</button>
+  const baseClass =
+    "w-[40px] h-[40px] items-center justify-center rounded-full bg-white border border-gray-100 shadow-[0_6px_18px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.12)] hover:scale-105 transition-all duration-300"
 
-              {/* WISHLIST */}
-              <Link href="/wishlist"
-                className="w-[38px] h-[38px] flex items-center justify-center rounded-full bg-white border border-gray-100 shadow-[0_6px_18px_rgba(0,0,0,0.06)]"
-              >
-                <Heart className="w-[18px] h-[18px] text-gray-600" />
-              </Link>
+  const mobileHide = item.hideMobile ? "hidden lg:flex" : "flex"
 
-              {/* CART */}
-              <Link href="/cart"
-                className="w-[40px] h-[40px] flex items-center justify-center rounded-full bg-white border border-gray-100 shadow-[0_6px_18px_rgba(0,0,0,0.06)]"
-              >
-                <ShoppingBag className="w-[18px] h-[18px] text-gray-600" />
-              </Link>
+  if (item.action) {
+    return (
+      <button
+        key={i}
+        onClick={item.action}
+        className={`${mobileHide} ${baseClass}`}
+      >
+        <Icon className="w-[18px] h-[18px] text-gray-600" />
+      </button>
+    )
+  }
+
+  return (
+    <Link
+      key={i}
+      href={item.link}
+      className={`${mobileHide} ${baseClass}`}
+    >
+      <Icon className="w-[18px] h-[18px] text-gray-600" />
+    </Link>
+  )
+})}
 
             </div>
 
           </div>
 
-          {/* LOGO */}
+          {/* 🔥 LOGO (UPGRADED) */}
           <Link href="/" className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-            <img src="/logo1.png" className="h-[36px] lg:h-[50px]" />
-            <span className="text-[13px] lg:text-[18px] tracking-[0.4em] font-semibold uppercase">
+
+            <img src="/logo1.png" className="h-[38px] lg:h-[52px]" />
+
+            <span className="text-[13px] lg:text-[18px] tracking-[0.35em] font-semibold uppercase">
               Tirumala
             </span>
-            <span className="text-[10px] tracking-[0.5em] text-[#CC0000] uppercase">
+
+            <span className="text-[10px] tracking-[0.45em] text-[#CC0000] uppercase">
               Family Mall
             </span>
+
           </Link>
 
         </div>
       </header>
 
-      {/* 🔥 SEARCH OVERLAY */}
+      {/* SEARCH */}
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
 
-      
+      {/* MOBILE DRAWER (UNCHANGED — already good) */}
       {/* 🔥 MOBILE DRAWER */}
 <>
   {/* OVERLAY */}

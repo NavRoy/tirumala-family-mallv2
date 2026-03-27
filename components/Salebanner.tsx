@@ -23,24 +23,24 @@ export default function FlashSaleBanner() {
           {/* CONTENT */}
           <div className="absolute left-8 top-1/2 -translate-y-1/2 text-white">
 
-            <p className="text-[11px] tracking-[0.4em] uppercase opacity-80 mb-2">
-              Limited Time
-            </p>
+  <p className="text-[11px] tracking-[0.4em] uppercase opacity-80 mb-2">
+    Limited Time
+  </p>
 
-            <h2 className="text-[26px] sm:text-[30px] font-semibold leading-tight mb-2">
-              Flash Sale
-            </h2>
+  <h2 className="heading-serif italic text-[26px] sm:text-[30px] md:text-[34px] lg:text-[38px] font-normal tracking-[0.12em] leading-[1.1] mb-2">
+    Flash Sale
+  </h2>
 
-            <p className="text-sm opacity-90 mb-4">
-              Up to 50% Off
-            </p>
+  <p className="text-sm opacity-90 mb-4">
+    Up to 50% Off
+  </p>
 
-            {/* CTA */}
-            <span className="inline-block text-[12px] tracking-[0.25em] uppercase border-b border-white pb-1 group-hover:text-[#ff4d4d] group-hover:border-[#ff4d4d] transition">
-              Shop Now
-            </span>
+  {/* CTA */}
+  <span className="inline-block text-[12px] tracking-[0.25em] uppercase border-b border-white pb-1 group-hover:text-[#ff4d4d] group-hover:border-[#ff4d4d] transition-all duration-300">
+    Shop Now
+  </span>
 
-          </div>
+</div>
 
         </Link>
 

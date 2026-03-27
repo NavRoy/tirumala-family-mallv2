@@ -11,69 +11,53 @@ const REELS = [
 
 export default function InstagramReels() {
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+    <section className="py-24 bg-[#fafafa] overflow-hidden">
 
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-6">
 
-        {/* HEADER */}
-        <div className="flex items-end justify-between mb-12">
+        {/* 🔥 HEADER */}
+        <div className="text-center mb-16">
 
-          <div>
-           <p className="text-[10px] tracking-[0.45em] uppercase text-gray-400 mb-2">
-  Follow Us
-</p>
+          <p className="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-3">
+            Instagram
+          </p>
 
-<h2 className="heading-serif italic text-[24px] sm:text-[28px] md:text-[32px] font-normal tracking-[0.08em] leading-[1.1] text-black">
-  @tirumalafamilymall777
-</h2>
+          <h2 className="heading-serif italic text-[26px] sm:text-[32px] md:text-[40px] tracking-[0.06em] px-4 sm:px-0 text-center leading-[1.3]">
+            @tirumalafamilymall777
+          </h2>
 
-            <div className="w-12 h-[2px] bg-[#CC0000] mt-3 rounded-full"></div>
-          </div>
-
-          {/* SIDE FOLLOW */}
-          <a
-            href="https://instagram.com/tirumalafamilymall777"
-            target="_blank"
-            className="hidden sm:block px-5 py-2.5 rounded-full 
-
-bg-gray-50
-text-gray-800
-text-[12px] font-medium tracking-[0.18em]
-
-border border-gray-200
-
-hover:bg-white
-hover:border-[#CC0000]
-hover:text-[#CC0000]
-
-shadow-[0_6px_20px_rgba(0,0,0,0.05)]
-hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)]
-
-transition-all duration-300"
-          >
-            Follow
-          </a>
+          <div className="w-16 h-[2px] bg-[#CC0000] mt-4 mx-auto"></div>
 
         </div>
 
-        {/* 🔥 MOBILE SLIDER */}
-        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory sm:hidden pb-2 tfm-noscroll">
+        {/* 🔥 REELS GRID */}
+       <div className="
+  flex gap-4 overflow-x-auto pb-4
 
-          {REELS.map(reel => (
+  sm:grid sm:grid-cols-3 lg:grid-cols-6 sm:overflow-visible
+">
+
+          {REELS.map((reel, i) => (
             <a
               key={reel.id}
               href="https://instagram.com/tirumalafamilymall777"
               target="_blank"
-              className="snap-start shrink-0 w-[160px]"
+             className={`group relative min-w-[160px] sm:min-w-0 ${
+  i === 2 ? 'lg:scale-[1.1]' : ''
+}`}
             >
 
+              {/* 🔥 CARD */}
               <div className="
-              aspect-[9/16] rounded-2xl overflow-hidden bg-black
+                relative aspect-[9/16] rounded-3xl overflow-hidden
 
-              shadow-[0_20px_60px_rgba(0,0,0,0.12)]
-              hover:shadow-[0_30px_80px_rgba(0,0,0,0.18)]
+                bg-black
 
-              transition-all duration-300
+                shadow-[0_25px_70px_rgba(0,0,0,0.12)]
+                group-hover:shadow-[0_35px_100px_rgba(0,0,0,0.2)]
+
+                group-hover:-translate-y-3
+                transition-all duration-500
               ">
 
                 <video
@@ -82,63 +66,42 @@ transition-all duration-300"
                   muted
                   loop
                   playsInline
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-[1.08] transition duration-700"
                 />
 
-              </div>
+                {/* 🔥 DARK GRADIENT */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
-            </a>
-          ))}
+                {/* 🔥 PLAY ICON */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="
+                    w-12 h-12 rounded-full bg-white/90 backdrop-blur
 
-        </div>
+                    flex items-center justify-center text-black text-lg
 
-        {/* 🖥 DESKTOP GRID */}
-        <div className="hidden sm:grid grid-cols-3 lg:grid-cols-6 gap-6">
+                    opacity-0 group-hover:opacity-100
+                    scale-90 group-hover:scale-100
 
-          {REELS.map(reel => (
-            <a
-              key={reel.id}
-              href="https://instagram.com/tirumalafamilymall777"
-              target="_blank"
-              className="group relative block"
-            >
-
-              <div className="
-              aspect-[9/16] overflow-hidden rounded-2xl bg-black
-
-              shadow-[0_20px_60px_rgba(0,0,0,0.12)]
-              group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.18)]
-
-              group-hover:-translate-y-2
-              transition-all duration-300
-              ">
-
-                <video
-                  src={reel.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover group-hover:scale-[1.05] transition duration-500"
-                />
-
-              </div>
-
-              {/* overlay */}
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/25 transition" />
-
-              {/* play icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-9 h-9 rounded-full bg-white/80 backdrop-blur flex items-center justify-center text-black text-sm opacity-0 group-hover:opacity-100 transition">
-                  ▶
+                    transition-all duration-300
+                  ">
+                    ▶
+                  </div>
                 </div>
-              </div>
 
-              {/* caption */}
-              <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition">
-                <p className="text-white text-[11px] font-medium">
-                  {reel.caption}
-                </p>
+                {/* 🔥 CAPTION */}
+                <div className="absolute bottom-4 left-4 right-4">
+                  <p className="
+                    text-white text-[12px] font-medium
+
+                    opacity-0 group-hover:opacity-100
+                    translate-y-3 group-hover:translate-y-0
+
+                    transition-all duration-300
+                  ">
+                    {reel.caption}
+                  </p>
+                </div>
+
               </div>
 
             </a>
@@ -146,33 +109,7 @@ transition-all duration-300"
 
         </div>
 
-        {/* 🔥 PREMIUM CENTER BUTTON 
-        <div className="flex justify-center mt-16">
-
-          <a
-            href="https://instagram.com/tirumalafamilymall777"
-            target="_blank"
-            className="
-              flex items-center gap-2 
-              px-9 py-3.5 rounded-full 
-
-              text-white text-[13px] font-medium tracking-wide
-
-              shadow-[0_20px_60px_rgba(0,0,0,0.18)]
-              hover:shadow-[0_30px_80px_rgba(0,0,0,0.25)]
-
-              hover:-translate-y-1.5
-              transition-all duration-300
-            "
-            style={{
-              background:
-                'linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)',
-            }}
-          >
-            📸 Follow @tirumalafamilymall777
-          </a>
-
-        </div> */}
+    
 
       </div>
 

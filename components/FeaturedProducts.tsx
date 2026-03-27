@@ -62,8 +62,8 @@ const PRODUCTS: Record<string, Product[]> = {
     ...p,
 image: [
   'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80',
-  'https://images.unsplash.com/photo-1583391733956-6c77a90c2c59?w=600&q=80',
-  'https://images.unsplash.com/photo-1593032465171-8b6b5f3b5b0e?w=600&q=80',
+  'https://images.unsplash.com/photo-1542060748-10c28b62716f?w=600&q=80',
+  'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80',
   'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=600&q=80',
   'https://images.unsplash.com/photo-1520975916090-3105956dac38?w=600&q=80',
   'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600&q=80',
@@ -169,7 +169,7 @@ export default function FeaturedProducts() {
   Explore
 </p>
 
-<h2 className="heading-serif italic text-[28px] sm:text-[32px] md:text-[36px] font-normal tracking-[0.12em] leading-[1.1] text-black">
+<h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] lg:text-[44px]">
   Our Collection
 </h2>
 

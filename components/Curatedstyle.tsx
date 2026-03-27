@@ -6,28 +6,28 @@ const ITEMS = [
   {
     title: 'Anarkali Sets',
     desc: 'Timeless ethnic elegance',
-    href: '/women/anarkali',
+    href: '/collections/anarkali',
     img: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=90',
     big: true,
   },
   {
     title: 'Printed Kurtis',
-    href: '/kurtis',
+    href: '/collections/kurtis',
     img: 'https://images.unsplash.com/photo-1622339442030-9c0cdbaff342?w=800&q=90',
   },
   {
     title: 'Cotton Trousers',
-    href: '/women/leggings',
+    href: '/collections/leggings',
     img: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=90',
   },
   {
     title: 'Leggings',
-    href: '/women/leggings',
+    href: '/collections/leggings',
     img: 'https://images.unsplash.com/photo-1516822003754-cca485356ecb?w=800&q=90',
   },
   {
     title: 'Dress Materials',
-    href: '/dress-materials',
+    href: '/collections/dress-materials',
     img: 'https://images.unsplash.com/photo-1593032465171-8c6b3b5e0d64?w=800&q=90',
   },
 ]
@@ -45,7 +45,7 @@ export default function CategoryHighlight() {
   Trending
 </p>
 
-<h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] font-normal tracking-[0.12em] leading-[1.1] text-[#0f172a]">
+<h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] lg:text-[44px]">
   New Season Picks
 </h2>
 

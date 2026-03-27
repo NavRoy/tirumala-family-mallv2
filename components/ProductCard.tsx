@@ -23,28 +23,30 @@ export default function ProductCard({ product, idx = 0 }: { product: Product; id
   const placeholderBg = PLACEHOLDER_COLORS[idx % PLACEHOLDER_COLORS.length]
 
   return (
-    <div className="group rounded-lg overflow-hidden bg-white 
-shadow-[0_10px_30px_rgba(0,0,0,0.05)]
-hover:shadow-[0_25px_60px_rgba(0,0,0,0.1)]
-hover:-translate-y-1 transition-all duration-300">
+    <div className="group rounded-2xloverflow-hidden bg-white 
+shadow-[0_8px_25px_rgba(0,0,0,0.04)]
+hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]
+transition-all duration-300">
       {/* Image area */}
       <div
-  className="relative overflow-hidden rounded-md mb-3"
+      
+  className="relative overflow-hidden rounded-xl mb-3"
   style={{ aspectRatio: '3/4' }}
   onMouseEnter={() => setHovered(true)}
   onMouseLeave={() => setHovered(false)}
 >
+  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
         {/* Placeholder — replace with next/image */}
         <Link href={product.href} className="block w-full h-full">
   <img
     src={product.image || 'https://via.placeholder.com/400x500'}
     alt={product.name}
-    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.08]"
   />
 </Link>
 
         {/* Hover actions */}
-        <div className={`absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm py-2.5 flex items-center justify-center gap-3 transition-all duration-300 ${hovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+        <div className={`absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md py-3  rounded-t-xl flex items-center justify-center gap-3 transition-all duration-300 ${hovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
           <Link href={product.href} className="flex items-center gap-1.5 text-[11px] font-medium text-gray-700 hover:text-gray-900 tracking-wide">
             <Eye size={12} /> Quick View
           </Link>
@@ -54,7 +56,7 @@ hover:-translate-y-1 transition-all duration-300">
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {product.sold && <span className="text-[9.5px] font-semibold tracking-[0.12em] uppercase bg-gray-800 text-white px-2 py-0.5 rounded">Sold Out</span>}
           {!product.sold && product.badge && <span className="text-[9.5px] font-semibold tracking-[0.12em] uppercase bg-white text-gray-800 border border-gray-200 px-2 py-0.5 rounded">{product.badge}</span>}
-          {discount && !product.sold && <span className="text-[9.5px] font-semibold bg-red-600 text-white px-2 py-0.5 rounded">-{discount}%</span>}
+          {discount && !product.sold && <span className="text-[9px] font-semibold bg-[#cc0000] tracking-[0.08em] text-white px-2 py-0.5 rounded-full">-{discount}%</span>}
         </div>
 
         {/* Wishlist */}
@@ -64,7 +66,7 @@ hover:-translate-y-1 transition-all duration-300">
     e.stopPropagation()
     setWished(!wished)
   }}
-          className={`absolute top-2 right-2 z-10 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 ${wished ? 'bg-red-50 border border-red-200' : 'bg-white/80 border border-gray-200 opacity-0 group-hover:opacity-100'}`}
+          className={`absolute top-2 right-2 z-10 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 ${wished ? 'bg-red-50 border border-red-200' : 'bg-white/80 border border-gray-200 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300'}`}
           aria-label="Wishlist"
         >
           <Heart size={12} className={wished ? 'fill-red-500 text-red-500' : 'text-gray-500'} />
@@ -73,10 +75,10 @@ hover:-translate-y-1 transition-all duration-300">
 
       {/* Info */}
       <Link href={product.href} className="block">
-       <p className="text-[13px] text-gray-900 font-medium leading-snug line-clamp-2 mt-2 hover:text-gray-900 transition-colors">{product.name}</p>
+       <p className="text-[15px] text-gray-900 font-medium leading-snug line-clamp-2 mt-2 hover:text-gray-900 transition-colors tracking-[0.02em]">{product.name}</p>
         <div className="flex items-center gap-2">
-          <span className="text-[14px] font-semibold text-gray-900">₹{product.price.toLocaleString('en-IN')}</span>
-          {product.originalPrice && <span className="text-[12px] text-gray-400 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</span>}
+          <span className="text-[15px] font-semibold text-black">₹{product.price.toLocaleString('en-IN')}</span>
+          {product.originalPrice && <span className="text-[12px] text-gray-400/80 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</span>}
         </div>
       </Link>
     </div>

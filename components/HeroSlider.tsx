@@ -85,11 +85,11 @@ const onTouchEnd = (e: React.TouchEvent) => {
             <img
               src={slide.img}
               alt={slide.alt}
-              className="w-full h-full object-cover  scale-105 object-center transition-transform duration-[4000ms] ease-linear scale-[1.05]"
+              className="w-full h-full object-cover object-center transition-transform duration-[4000ms] ease-linear scale-[1.05]"
             />
 
             {/* PREMIUM OVERLAY */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent" />
           </Link>
         )
       })}

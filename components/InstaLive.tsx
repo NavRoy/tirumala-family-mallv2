@@ -9,7 +9,7 @@ const PRODUCTS: Product[] = [
     name: '3 Piece Set – Special Edition',
     price: 1049,
     originalPrice: 1299,
-    image: 'https://images.unsplash.com/photo-1593032465171-8c6b3b5e0d64?w=500&q=90',
+    image: 'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500&q=90',
     href: '/products/il1',
     badge: 'Live',
   },
@@ -26,14 +26,14 @@ const PRODUCTS: Product[] = [
     name: '2 Piece Coord Set',
     price: 799,
     originalPrice: 999,
-    image: 'https://images.unsplash.com/photo-1583391733956-6c77a2a7d35d?w=500&q=90',
+    image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&q=90',
     href: '/products/il3',
   },
   {
     id: 'il4',
     name: 'Anarkali Set – Premium',
     price: 1199,
-    image: 'https://images.unsplash.com/photo-1622339442030-9c0cdbaff342?w=500&q=90',
+    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&q=90',
     href: '/products/il4',
     badge: 'Trending',
   },
@@ -83,7 +83,7 @@ export default function InstaLive() {
   Live Shopping
 </p>
 
-<h2 className="heading-serif italic text-[28px] sm:text-[32px] md:text-[36px] font-normal tracking-[0.12em] leading-[1.1] text-black">
+<h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] lg:text-[44px]">
   Insta Live
 </h2>
 

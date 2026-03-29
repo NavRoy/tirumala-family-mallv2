@@ -23,7 +23,7 @@ export default function ProductCard({ product, idx = 0 }: { product: Product; id
   const placeholderBg = PLACEHOLDER_COLORS[idx % PLACEHOLDER_COLORS.length]
 
   return (
-    <div className="group rounded-2xloverflow-hidden bg-white 
+    <div className="group rounded-2xl overflow-hidden bg-white 
 shadow-[0_8px_25px_rgba(0,0,0,0.04)]
 hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)]
 transition-all duration-300">

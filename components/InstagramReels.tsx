@@ -1,17 +1,33 @@
 'use client'
 
+import { useRef } from 'react'
+
 const REELS = [
   { id: 'r1', caption: 'New Saree Collection', video: '/reels/reel1.mp4' },
   { id: 'r2', caption: "Men's Ethnic Wear", video: '/reels/reel1.mp4' },
   { id: 'r3', caption: 'Kids Special', video: '/reels/reel1.mp4' },
   { id: 'r4', caption: 'Live Highlights', video: '/reels/reel1.mp4' },
   { id: 'r5', caption: 'Festival Collection', video: '/reels/reel1.mp4' },
-  { id: 'r6', caption: 'Trending Styles', video: '/reels/reel1.mp4' },
 ]
 
 export default function InstagramReels() {
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+
+  const handleMouseEnter = (index: number) => {
+    const video = videoRefs.current[index]
+    if (video) video.play()
+  }
+
+  const handleMouseLeave = (index: number) => {
+    const video = videoRefs.current[index]
+    if (video) {
+      video.pause()
+      video.currentTime = 0
+    }
+  }
+
   return (
-    <section className="py-24 bg-[#fafafa] overflow-hidden">
+    <section className="py-24 bg-white">
 
       <div className="max-w-[1400px] mx-auto px-6">
 
@@ -22,82 +38,65 @@ export default function InstagramReels() {
             Instagram
           </p>
 
-          <h2 className="heading-serif italic text-[26px] sm:text-[32px] md:text-[40px] tracking-[0.06em] px-4 sm:px-0 text-center leading-[1.3]">
-            @tirumalafamilymall777
+          <h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] lg:text-[44px]">
+            Follow Our Style Stories
           </h2>
 
-          <div className="w-16 h-[2px] bg-[#CC0000] mt-4 mx-auto"></div>
+          <p className="text-gray-500 text-sm mt-4">
+            @tirumalafamilymall777
+          </p>
+
+          <div className="w-12 h-[2px] bg-[#c47a5a] mt-5 mx-auto rounded-full"></div>
 
         </div>
 
-        {/* 🔥 REELS GRID */}
-       <div className="
-  flex gap-4 overflow-x-auto pb-4
-
-  sm:grid sm:grid-cols-3 lg:grid-cols-6 sm:overflow-visible
-">
+        {/* 🔥 DESKTOP GRID */}
+        <div className="hidden md:grid grid-cols-5 gap-6">
 
           {REELS.map((reel, i) => (
             <a
               key={reel.id}
               href="https://instagram.com/tirumalafamilymall777"
               target="_blank"
-             className={`group relative min-w-[160px] sm:min-w-0 ${
-  i === 2 ? 'lg:scale-[1.1]' : ''
-}`}
+              rel="noopener noreferrer"
+              className={`group relative ${i === 2 ? 'scale-[1.08] z-10' : ''}`}
+              onMouseEnter={() => handleMouseEnter(i)}
+              onMouseLeave={() => handleMouseLeave(i)}
             >
 
-              {/* 🔥 CARD */}
-              <div className="
-                relative aspect-[9/16] rounded-3xl overflow-hidden
-
-                bg-black
-
-                shadow-[0_25px_70px_rgba(0,0,0,0.12)]
-                group-hover:shadow-[0_35px_100px_rgba(0,0,0,0.2)]
-
-                group-hover:-translate-y-3
-                transition-all duration-500
-              ">
+              <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-black
+                shadow-[0_15px_40px_rgba(0,0,0,0.08)]
+                group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)]
+                transition-all duration-500">
 
                 <video
+                  ref={(el) => {
+                    videoRefs.current[i] = el
+                  }}
                   src={reel.video}
-                  autoPlay
                   muted
                   loop
                   playsInline
-                  className="w-full h-full object-cover group-hover:scale-[1.08] transition duration-700"
+                  preload="metadata"
+                  className="w-full h-full object-cover transition duration-700 group-hover:scale-[1.05]"
                 />
 
-                {/* 🔥 DARK GRADIENT */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                {/* GRADIENT */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                {/* 🔥 PLAY ICON */}
+                {/* PLAY BUTTON */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="
-                    w-12 h-12 rounded-full bg-white/90 backdrop-blur
-
-                    flex items-center justify-center text-black text-lg
-
-                    opacity-0 group-hover:opacity-100
-                    scale-90 group-hover:scale-100
-
-                    transition-all duration-300
-                  ">
+                  <div className="w-11 h-11 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-black text-sm
+                    opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-300">
                     ▶
                   </div>
                 </div>
 
-                {/* 🔥 CAPTION */}
+                {/* CAPTION */}
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="
-                    text-white text-[12px] font-medium
-
-                    opacity-0 group-hover:opacity-100
-                    translate-y-3 group-hover:translate-y-0
-
-                    transition-all duration-300
-                  ">
+                  <p className="text-white text-[12px] font-medium
+                    opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0
+                    transition-all duration-300">
                     {reel.caption}
                   </p>
                 </div>
@@ -109,7 +108,43 @@ export default function InstagramReels() {
 
         </div>
 
-    
+        {/* 🔥 MOBILE SCROLL */}
+        <div className="md:hidden flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+
+          {REELS.map((reel) => (
+            <a
+              key={reel.id}
+              href="https://instagram.com/tirumalafamilymall777"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-w-[140px] group relative"
+            >
+
+              <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-black shadow-md">
+
+                <video
+                  src={reel.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+
+                <div className="absolute bottom-3 left-3 right-3">
+                  <p className="text-white text-[11px] font-medium">
+                    {reel.caption}
+                  </p>
+                </div>
+
+              </div>
+
+            </a>
+          ))}
+
+        </div>
 
       </div>
 

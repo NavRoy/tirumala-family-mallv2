@@ -23,48 +23,77 @@ function SearchContent() {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="border-b border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-5 lg:px-10 py-3">
-          <p className="text-[11px] text-gray-400">
-            <Link href="/" className="hover:text-gray-700 transition-colors">Home</Link>
-            <span className="mx-2 text-gray-300">/</span>
-            <span className="text-gray-600">Search</span>
+
+      {/* HEADER */}
+      <div className="bg-[#fafafa] border-b">
+        <div className="max-w-[1400px] mx-auto px-5 lg:px-10 py-10 text-center">
+
+          <p className="text-[10px] tracking-[0.4em] uppercase text-[#CC0000] mb-3">
+            Search
           </p>
+<div className="w-10 h-[2px] bg-[#CC0000] mx-auto mt-4"></div>
+          <h1 className="heading-serif text-4xl md:text-5xl italic leading-tight tracking-wide">
+            {q ? `Results for "${q}"` : 'Search Products'}
+          </h1>
+
+          <p className="text-gray-500 text-sm mt-3">
+            {q
+              ? `${SAMPLE.length} products found`
+              : 'Find sarees, kurtis, shirts and more'}
+          </p>
+
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-5 lg:px-10 py-8">
+      {/* CONTENT */}
+      <div className="max-w-[1400px] mx-auto px-5 lg:px-10 py-14 md:py-16">
+
         {q ? (
           <>
-            <div className="flex items-baseline gap-3 mb-8">
-              <h1 className="text-[22px] font-light text-gray-900">
-                Results for <span className="font-medium">"{q}"</span>
-              </h1>
-              <p className="text-[12px] text-gray-400">{SAMPLE.length} products found</p>
-            </div>
+            {/* RESULT COUNT */}
+          <p className="text-[13px] text-gray-500 mb-8">
+  Showing <span className="text-black font-medium">{SAMPLE.length}</span> results
+</p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
-              {SAMPLE.map((p, i) => <ProductCard key={p.id} product={p} idx={i} />)}
+            {/* GRID */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+              {SAMPLE.map((p, i) => (
+                <ProductCard key={p.id} product={p} idx={i} />
+              ))}
             </div>
           </>
         ) : (
-          <div className="text-center py-16 max-w-sm mx-auto">
-            <div className="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-5">
-              <Search size={22} className="text-gray-300" />
+
+          <div className="text-center py-20 max-w-md mx-auto">
+
+            <div className="w-16 h-16 rounded-full bg-[#fafafa] shadow-sm flex items-center justify-center mx-auto mb-5">
+              <Search size={22} className="text-gray-400" />
             </div>
-            <p className="text-[14px] text-gray-500 mb-7">Search for sarees, kurtis, shirts and more</p>
-            <p className="text-[10px] tracking-[0.25em] uppercase text-gray-400 mb-3">Popular searches</p>
+
+            <p className="text-sm text-gray-500 mb-8">
+              Start searching for products
+            </p>
+
+            <p className="text-[10px] tracking-[0.25em] uppercase text-gray-400 mb-4">
+              Popular Searches
+            </p>
+
             <div className="flex flex-wrap gap-2 justify-center">
-              {SUGGESTIONS.map(s => (
-                <Link key={s} href={`/search?q=${s}`}
-                  className="text-[12px] text-gray-500 border border-gray-200 px-3.5 py-1.5 rounded-full hover:border-gray-700 hover:text-gray-900 transition-all"
+              {SUGGESTIONS.map((s) => (
+                <Link
+                  key={s}
+                  href={`/search?q=${s}`}
+                  className="text-[12px] text-gray-600 border border-gray-200 px-5 py-2 rounded-full hover:border-black hover:text-black hover:scale-[1.03] transition-all"
                 >
                   {s}
                 </Link>
               ))}
             </div>
+
           </div>
+
         )}
+
       </div>
     </div>
   )

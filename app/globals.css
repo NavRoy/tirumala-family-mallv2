@@ -131,3 +131,43 @@ body {
 .bg-soft {
   background: var(--bg-soft);
 }
+
+
+/* Hide scrollbar (premium look) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 🔥 LOGO LUXURY ANIMATION */
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.15);
+  }
+}
+
+.logo-float {
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+.logo-glow {
+  animation: logoGlow 3s ease-in-out infinite;
+}

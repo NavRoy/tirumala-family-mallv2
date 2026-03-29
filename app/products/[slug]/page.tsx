@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { Heart, Share2, ShieldCheck, Truck, RefreshCw, ChevronDown, Star } from 'lucide-react'
 import ProductCard, { Product } from '@/components/ProductCard'
@@ -8,17 +9,52 @@ import { useRouter } from 'next/navigation'
 import { useCartStore, useWishlistStore } from '@/store'
 
 const IMAGES = [
-  'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80',
-  'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=800&q=80',
-  'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80',
-  'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80',
+  'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80',
+  'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80',
 ]
+
+const COLOR_IMAGES: Record<string, string[]> = {
+  '#7b1e3a': [ // WINE / MAROON
+    'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=90',
+    'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=90',
+    'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=800&q=90',
+    'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=90',
+  ],
+
+  '#e8cfc4': [ // BEIGE / LIGHT
+    'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=800&q=90',
+    'https://images.unsplash.com/photo-1520975922284-9f1d1f3a9c10?w=800&q=90',
+    'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=90',
+    'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=90',
+  ],
+
+  '#000000': [ // BLACK
+    'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=90',
+    'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=90',
+    'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=90',
+    'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=800&q=90',
+  ],
+
+  '#d4af37': [ // GOLD
+    'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=90',
+    'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=90',
+    'https://images.unsplash.com/photo-1520975922284-9f1d1f3a9c10?w=800&q=90',
+    'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=800&q=90',
+  ],
+}
 
 const RELATED: Product[] = [
   { id: 'r1', name: 'Georgette Printed Saree', price: 1099, originalPrice: 1399, image: IMAGES[1], href: '/products/r1', badge: 'Popular' },
   { id: 'r2', name: 'Embroidered Kurti Set', price: 749, image: IMAGES[2], href: '/products/r2' },
   { id: 'r3', name: 'Silk Blend Saree', price: 1499, originalPrice: 1899, image: IMAGES[0], href: '/products/r3', badge: 'New' },
   { id: 'r4', name: 'Cotton Anarkali Set', price: 899, image: IMAGES[3], href: '/products/r4' },
+
+  { id: 'r5', name: 'Party Wear Saree', price: 1399, image: IMAGES[0], href: '/products/r5', badge: 'Hot' },
+  { id: 'r6', name: 'Designer Kurti', price: 899, image: IMAGES[1], href: '/products/r6' },
+  { id: 'r7', name: 'Festival Saree', price: 1599, image: IMAGES[2], href: '/products/r7' },
+  { id: 'r8', name: 'Elegant Dress Set', price: 999, image: IMAGES[3], href: '/products/r8' },
 ]
 
 const DETAILS = [
@@ -34,20 +70,74 @@ export default function ProductPage() {
   const [imgIdx, setImgIdx] = useState(0)
   const [openQ, setOpenQ] = useState<string | null>('Description')
   const [zoomOpen, setZoomOpen] = useState(false)
+  const [selectedColor, setSelectedColor] = useState<string | null>(null)
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 const [sizeError, setSizeError] = useState(false)
   const { addItem, openCart } = useCartStore()
   const { toggle, has } = useWishlistStore()
   const [added, setAdded] = useState(false)
+  const sliderRef = useRef<HTMLDivElement | null>(null) 
 
-  const product = {
-    id: 'p1',
-    name: 'Silk Blend Designer Saree',
-    price: 1299,
-    image: IMAGES[imgIdx],
-    href: '/products/p1',
+const product: Product = {
+  id: 'p1',
+  name: 'Silk Blend Designer Saree',
+  price: 1299,
+  image: selectedColor && COLOR_IMAGES[selectedColor]
+  ? COLOR_IMAGES[selectedColor][imgIdx % COLOR_IMAGES[selectedColor].length]
+  : IMAGES[imgIdx],
+  href: '/products/p1',
+}
+
+
+const [recent, setRecent] = useState<Product[]>([])
+
+/* ✅ RECENTLY VIEWED */
+useEffect(() => {
+  let stored: Product[] = []
+
+  try {
+    stored = JSON.parse(localStorage.getItem('recent') || '[]')
+  } catch {
+    stored = []
   }
+
+  const updated = [
+    product,
+    ...stored.filter((p) => p.id !== product.id),
+  ].slice(0, 8)
+
+  localStorage.setItem('recent', JSON.stringify(updated))
+  setRecent(updated)
+}, [selectedColor])
+
+
+/* ✅ AUTO SLIDER */
+useEffect(() => {
+  let scroll = 0
+
+  const interval = setInterval(() => {
+    const el = sliderRef.current
+    if (!el) return
+
+    scroll += 240
+
+    if (scroll >= el.scrollWidth - el.clientWidth) {
+      scroll = 0
+    }
+
+    el.scrollTo({ left: scroll, behavior: 'smooth' })
+  }, 2500)
+
+  return () => {
+    clearInterval(interval)
+  }
+}, [])
+
+const currentImages =
+  selectedColor && COLOR_IMAGES[selectedColor]
+    ? COLOR_IMAGES[selectedColor]
+    : IMAGES
 
   return (
    <div className="bg-white min-h-screen pb-20 lg:pb-0">
@@ -67,7 +157,7 @@ const [sizeError, setSizeError] = useState(false)
           <div className="flex gap-4">
 
             <div className="hidden sm:flex flex-col gap-3">
-              {IMAGES.map((img, i) => (
+              {(selectedColor ? COLOR_IMAGES[selectedColor] : IMAGES).map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setImgIdx(i)}
@@ -95,7 +185,7 @@ const [sizeError, setSizeError] = useState(false)
                 }}
               >
                 <img
-                  src={IMAGES[imgIdx]}
+                 src={currentImages[imgIdx % currentImages.length]}
                   onClick={() => setZoomOpen(true)}
                   className="w-full h-[480px] lg:h-[520px] object-contain bg-white transition duration-300"
                 />
@@ -118,7 +208,7 @@ const [sizeError, setSizeError] = useState(false)
                 {/* 🔥 CONTROLLED ZOOM */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none">
                   <img
-                    src={IMAGES[imgIdx]}
+                   src={currentImages[imgIdx % currentImages.length]}
                     className="w-full h-full object-contain scale-[1.25] object-contain bg-white"
                     style={{ transformOrigin: 'var(--x) var(--y)' }}
                   />
@@ -147,6 +237,40 @@ const [sizeError, setSizeError] = useState(false)
               <span className="line-through text-gray-400">₹1,599</span>
               <span className="text-[#CC0000] text-[12px] font-medium">19% OFF</span>
             </div>
+{/* COLOR */}
+<div className="mt-6">
+  <p className="text-[11px] tracking-[0.18em] uppercase text-gray-500 mb-3">
+    Select Color
+  </p>
+
+  <div className="flex gap-3">
+{Object.entries(COLOR_IMAGES).map(([color, imgs], i) => (
+  <button
+    key={i}
+    onClick={() => {
+      setSelectedColor(color)
+      setImgIdx(0)
+    }}
+    className={`relative w-[55px] h-[70px] rounded-lg overflow-hidden border transition ${
+      selectedColor === color
+        ? 'border-black ring-2 ring-black/20'
+        : 'border-gray-200 hover:border-black'
+    }`}
+  >
+    <img
+      src={imgs[0]}
+      className="w-full h-full object-cover"
+    />
+
+    {/* COLOR DOT */}
+    <span
+      className="absolute bottom-1 right-1 w-3 h-3 rounded-full border border-white"
+      style={{ backgroundColor: color }}
+    />
+  </button>
+))}
+  </div>
+</div>
 
             {/* SIZE */}
             <div className="mt-6">
@@ -235,27 +359,60 @@ const [sizeError, setSizeError] = useState(false)
           </div>
         </div>
 
-        {/* REVIEWS */}
-        <div className="mt-16">
-          <h2 className="heading-serif text-[26px] mb-8">Customer Reviews</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1,2,3].map(i => (
-              <div key={i} className="p-5 rounded-xl bg-white border shadow-sm">
-                <div className="flex gap-1 mb-3">
-                  {[1,2,3,4,5].map(s => (
-                    <Star key={s} size={12} className="fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-[13px] text-gray-600 leading-[1.6] mb-4">
-                  Amazing quality and perfect fit. The fabric feels premium and elegant.
-                </p>
-                <p className="text-[12px] font-medium">Priya Sharma</p>
-              </div>
-            ))}
-          </div>
-        </div>
+    
 
       </div>
+
+      {/* RELATED PRODUCTS */}
+<div className="mt-24 px-6 lg:px-10">
+  <h2 className="heading-serif text-[26px] mb-10 text-center">
+    Complete Your Look
+  </h2>
+
+<div className="flex justify-end gap-3 mb-4 px-2">
+<button
+  onClick={() => {
+    sliderRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
+  }}
+  className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300">
+  ‹
+</button>
+
+<button
+  onClick={() => {
+    sliderRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
+  }}
+ className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300"
+>
+  ›
+</button>
+</div>
+
+<div
+  ref={sliderRef}
+  className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory px-1"
+>
+  {RELATED.map((item, i) => (
+    <div key={item.id} className="min-w-[180px] sm:min-w-[220px] snap-start">
+      <ProductCard product={item} idx={i} />
+    </div>
+  ))}
+</div>
+</div>
+
+{recent.length > 1 && (
+  <div className="mt-24">
+    <h2 className="heading-serif text-[26px] mb-10 text-center">
+      Recently Viewed
+    </h2>
+
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      {recent.slice(1).map((item, i) => (
+        <ProductCard key={item.id} product={item} idx={i} />
+      ))}
+    </div>
+  </div>
+)}
 
       {/* 🔥 FULLSCREEN ZOOM */}
 {zoomOpen && (
@@ -264,7 +421,7 @@ const [sizeError, setSizeError] = useState(false)
     {/* TOP BAR */}
     <div className="flex justify-between items-center px-6 py-4 text-black">
       <span className="text-[13px] tracking-wide text-gray-600">
-        {imgIdx + 1} / {IMAGES.length}
+        {imgIdx + 1} / {(selectedColor ? COLOR_IMAGES[selectedColor] : IMAGES).length}
       </span>
 
       <button
@@ -281,26 +438,43 @@ const [sizeError, setSizeError] = useState(false)
       {/* 🔥 IMAGE CARD (IMPORTANT) */}
       <div className="bg-white p-4 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)]">
         <img
-          src={IMAGES[imgIdx]}
-          className="max-h-[75vh] object-contain"
-        />
+ src={currentImages[imgIdx % currentImages.length]}
+  className="max-h-[75vh] object-contain"
+/>
       </div>
 
       {/* LEFT */}
-      <button
-        onClick={() => setImgIdx((prev) => (prev - 1 + IMAGES.length) % IMAGES.length)}
-        className="absolute left-6 w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-black hover:scale-110 transition"
-      >
-        ‹
-      </button>
+      {/* LEFT */}
+<button
+  onClick={() =>
+    setImgIdx((prev) => {
+      const length = selectedColor
+        ? COLOR_IMAGES[selectedColor].length
+        : IMAGES.length
 
-      {/* RIGHT */}
-      <button
-        onClick={() => setImgIdx((prev) => (prev + 1) % IMAGES.length)}
-        className="absolute right-6 w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-black hover:scale-110 transition"
-      >
-        ›
-      </button>
+      return (prev - 1 + length) % length
+    })
+  }
+  className="absolute left-6 w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-black hover:scale-110 transition"
+>
+  ‹
+</button>
+
+{/* RIGHT */}
+<button
+  onClick={() =>
+    setImgIdx((prev) => {
+      const length = selectedColor
+        ? COLOR_IMAGES[selectedColor].length
+        : IMAGES.length
+
+      return (prev + 1) % length
+    })
+  }
+  className="absolute right-6 w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-black hover:scale-110 transition"
+>
+  ›
+</button>
 
     </div>
   </div>

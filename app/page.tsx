@@ -24,9 +24,10 @@ export default function HomePage() {
       <InstaLive />
      
       <Curatedstyle />
+       <DiscoverStore />
       <InstagramReels />
       
-      <DiscoverStore />
+     
     </>
   )
 }

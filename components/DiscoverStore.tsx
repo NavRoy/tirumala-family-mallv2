@@ -2,136 +2,88 @@
 
 import Link from 'next/link'
 
-export default function DiscoverStore() {
+const CATEGORIES = [
+  {
+    name: 'TOPS',
+    img: 'https://images.unsplash.com/photo-1520975922284-7b06c0f3c8e3?w=800&q=85',
+    slug: 'tops',
+  },
+  {
+    name: 'SHIRTS',
+    img: 'https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=800&q=85',
+    slug: 'shirts',
+  },
+  {
+    name: 'DRESSES',
+    img: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&q=85',
+    slug: 'frocks', // 👈 mapped to frocks
+  },
+  {
+    name: 'SHORTS & SETS',
+    img: 'https://images.unsplash.com/photo-1593032457869-38fcaec1b3d5?w=800&q=85',
+    slug: 'coord', // 👈 using coord for sets
+  },
+]
+
+
+export default function SummerEditSection() {
   return (
-    <section className="py-20 bg-gradient-to-b from-[#fafafa] to-[#f5f5f5] border-t border-gray-100">
+    <section className="bg-[#fafafa] py-20">
 
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="max-w-[1300px] mx-auto px-6">
 
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
+        {/* HEADER */}
+        <div className="text-center mb-14">
 
-          {/* 🔥 LEFT IMAGES */}
-          <div className="space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-5">
+          <p className="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-3">
+            Summer Edit
+          </p>
 
-            {/* MOBILE: SINGLE HERO IMAGE */}
-            <div className="lg:hidden rounded-2xl overflow-hidden shadow-md">
-              <img
-                src="https://images.unsplash.com/photo-1521336575822-6da63fb45455?w=800&q=90"
-                className="w-full h-[220px] object-cover"
-              />
-            </div>
+          <h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] lg:text-[44px]">
+           summer picks
+          </h2>
 
-            {/* DESKTOP GRID */}
-            <>
-
-              {/* BIG IMAGE */}
-              <div className="hidden lg:block row-span-2 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
-                <img
-                  src="https://images.unsplash.com/photo-1521336575822-6da63fb45455?w=800&q=90"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* TOP */}
-              <div className="hidden lg:block rounded-3xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.1)]">
-                <img
-                  src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=90"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* BOTTOM */}
-              <div className="hidden lg:block relative rounded-3xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.1)]">
-                <img
-                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=90"
-                  className="w-full h-full object-cover"
-                />
-
-                {/* BADGE */}
-                <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-5 py-3 rounded-2xl shadow">
-                  <p className="text-lg font-semibold text-black">100+</p>
-                  <p className="text-[11px] text-gray-500">Categories</p>
-                </div>
-              </div>
-
-            </>
-
-          </div>
-
-          {/* 🔥 RIGHT CONTENT */}
-          <div>
-
-            {/* TITLE */}
-            <div className="mb-8 text-center lg:text-left">
-              <p className="text-[10px] tracking-[0.45em] uppercase text-gray-400 mb-2">
-                Visit Us
-              </p>
-
-              <h2 className="heading-serif italic text-[30px] sm:text-[34px] md:text-[38px] lg:text-[44px]">
-  Discover Our Store
-</h2>
-
-              <div className="w-12 h-[2px] bg-[#CC0000] mt-3 rounded-full mx-auto lg:mx-0"></div>
-            </div>
-
-            {/* DESC */}
-            <p className="text-[14px] text-gray-600 leading-relaxed mb-8 text-center lg:text-left">
-              Visit Tirumala Family Mall at Tekkali, Srikakulam — your one-stop destination for fashion & accessories.
-            </p>
-
-            {/* INFO CARDS */}
-            <div className="space-y-4 mb-8">
-
-              {[
-                { icon: '📍', title: 'Address', text: 'Tekkali, Srikakulam' },
-                { icon: '📞', title: 'WhatsApp', text: '+91 99662 48223' },
-                { icon: '⏰', title: 'Store Hours', text: '9AM – 9PM' },
-              ].map((item, i) => (
-                <div key={i}
-                  className="flex items-center gap-4 bg-white rounded-xl px-4 py-3 border border-gray-100 shadow-sm">
-                  
-                  <div className="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center text-[#CC0000]">
-                    {item.icon}
-                  </div>
-
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-gray-400">
-                      {item.title}
-                    </p>
-                    <p className="text-[13px] text-gray-700">
-                      {item.text}
-                    </p>
-                  </div>
-
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-
-              <a
-                href="https://wa.me/919966248223"
-                target="_blank"
-                className="px-6 py-3 rounded-full bg-[#CC0000] text-white text-[13px] font-medium text-center shadow hover:bg-[#a80000] transition"
-              >
-                WhatsApp Order →
-              </a>
-
-              <Link
-                href="/contact"
-                className="px-6 py-3 rounded-full border border-gray-300 text-[13px] text-gray-700 text-center hover:border-[#CC0000] hover:text-[#CC0000] transition"
-              >
-                Contact Us →
-              </Link>
-
-            </div>
-
-          </div>
+          <div className="w-12 h-[2px] bg-[#c47a5a] mx-auto mt-4 rounded-full"></div>
 
         </div>
 
+        {/* GRID */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
+
+          {CATEGORIES.map((item, i) => (
+            <Link key={i} href={`/collections/${item.slug}`} className="group">
+
+              <div className="relative rounded-2xl overflow-hidden bg-white
+                shadow-[0_10px_30px_rgba(0,0,0,0.05)]
+                hover:shadow-[0_25px_60px_rgba(0,0,0,0.1)]
+                transition-all duration-500">
+
+                <img
+                  src={item.img}
+                  className="w-full h-[260px] md:h-[320px] object-cover transition duration-700 group-hover:scale-[1.05]"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-500" />
+
+                <div className="absolute bottom-0 left-0 w-full bg-white/85 backdrop-blur-md py-4 text-center">
+
+                  <h3 className="text-[12px] md:text-[13px] tracking-[0.12em] uppercase text-gray-800 font-medium">
+                    {item.name}
+                  </h3>
+
+                </div>
+
+              </div>
+
+            </Link>
+          ))}
+
+        </div>
+
+
+
       </div>
+
     </section>
   )
 }

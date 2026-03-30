@@ -1,12 +1,15 @@
 'use client'
-
+import { addToRecent } from '@/lib/recent'
 import { useRef, useState } from 'react'
 import { useEffect } from 'react'
+
 import Link from 'next/link'
 import { Heart, Share2, ShieldCheck, Truck, RefreshCw, ChevronDown, Star } from 'lucide-react'
 import ProductCard, { Product } from '@/components/ProductCard'
 import { useRouter } from 'next/navigation'
 import { useCartStore, useWishlistStore } from '@/store'
+import Image from 'next/image'
+import { useParams } from 'next/navigation'
 
 const IMAGES = [
   'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
@@ -77,39 +80,31 @@ const [sizeError, setSizeError] = useState(false)
   const { addItem, openCart } = useCartStore()
   const { toggle, has } = useWishlistStore()
   const [added, setAdded] = useState(false)
-  const sliderRef = useRef<HTMLDivElement | null>(null) 
-
-const product: Product = {
-  id: 'p1',
-  name: 'Silk Blend Designer Saree',
-  price: 1299,
-  image: selectedColor && COLOR_IMAGES[selectedColor]
-  ? COLOR_IMAGES[selectedColor][imgIdx % COLOR_IMAGES[selectedColor].length]
-  : IMAGES[imgIdx],
-  href: '/products/p1',
-}
-
+  const relatedRef = useRef<HTMLDivElement | null>(null)
+const recentRef = useRef<HTMLDivElement | null>(null)
+const params = useParams()
+const productId = params.id as string
 
 const [recent, setRecent] = useState<Product[]>([])
 
+const product: Product = {
+  id: productId,
+  name: 'Silk Blend Designer Saree',
+  price: 1299,
+  image: selectedColor && COLOR_IMAGES[selectedColor]
+    ? COLOR_IMAGES[selectedColor][imgIdx % COLOR_IMAGES[selectedColor].length]
+    : IMAGES[imgIdx],
+  href: `/products/${productId}`,
+}
+
+
+
+
 /* ✅ RECENTLY VIEWED */
 useEffect(() => {
-  let stored: Product[] = []
-
-  try {
-    stored = JSON.parse(localStorage.getItem('recent') || '[]')
-  } catch {
-    stored = []
-  }
-
-  const updated = [
-    product,
-    ...stored.filter((p) => p.id !== product.id),
-  ].slice(0, 8)
-
-  localStorage.setItem('recent', JSON.stringify(updated))
+  const updated = addToRecent(product)
   setRecent(updated)
-}, [selectedColor])
+}, [product.id])
 
 
 /* ✅ AUTO SLIDER */
@@ -117,10 +112,12 @@ useEffect(() => {
   let scroll = 0
 
   const interval = setInterval(() => {
-    const el = sliderRef.current
+    const el = relatedRef.current
     if (!el) return
 
-    scroll += 240
+const first = el.children[0] as HTMLElement | null
+const cardWidth = first?.clientWidth || 220
+scroll += cardWidth + 24
 
     if (scroll >= el.scrollWidth - el.clientWidth) {
       scroll = 0
@@ -140,7 +137,7 @@ const currentImages =
     : IMAGES
 
   return (
-   <div className="bg-white min-h-screen pb-20 lg:pb-0">
+  <div className="bg-white min-h-screen pb-20 lg:pb-0 overflow-x-hidden">
 
       {/* BREADCRUMB */}
       <div className="border-b border-gray-100">
@@ -154,18 +151,21 @@ const currentImages =
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
           {/* IMAGE SECTION */}
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
 
-            <div className="hidden sm:flex flex-col gap-3">
+            <div className="flex gap-3 overflow-x-auto max-w-full pb-2 sm:flex-col sm:overflow-visible">
               {(selectedColor ? COLOR_IMAGES[selectedColor] : IMAGES).map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setImgIdx(i)}
-                  className={`w-[70px] h-[90px] rounded-lg overflow-hidden border transition ${
+                  className={`relative w-[70px] h-[90px] rounded-lg overflow-hidden border transition ${
                    imgIdx === i ? 'border-black ring-2 ring-black/20': 'border-gray-200 hover:border-black'
                   }`}
                 >
-                  <img src={img} className="w-full h-full object-cover" />
+                  <Image
+  src={img}
+  alt=""
+  fill className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -187,7 +187,7 @@ const currentImages =
                 <img
                  src={currentImages[imgIdx % currentImages.length]}
                   onClick={() => setZoomOpen(true)}
-                  className="w-full h-[480px] lg:h-[520px] object-contain bg-white transition duration-300"
+                  className="w-full h-[340px] sm:h-[480px] lg:h-[520px] object-contain bg-white transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 />
 <div className="absolute bottom-3 right-3 text-[10px] bg-white/80 px-2 py-1 rounded">
   Click to zoom
@@ -365,14 +365,16 @@ const currentImages =
 
       {/* RELATED PRODUCTS */}
 <div className="mt-24 px-6 lg:px-10">
-  <h2 className="heading-serif text-[26px] mb-10 text-center">
+  <h2 className="heading-serif italic text-[28px] md:text-[32px] text-center mb-8 tracking-[0.04em]">
+    
     Complete Your Look
+    <div className="w-10 h-[2px] bg-[#cc0000] mx-auto mt-3"></div>
   </h2>
 
 <div className="flex justify-end gap-3 mb-4 px-2">
 <button
   onClick={() => {
-    sliderRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
+    relatedRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
   }}
   className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300">
   ‹
@@ -380,7 +382,7 @@ const currentImages =
 
 <button
   onClick={() => {
-    sliderRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
+    relatedRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
   }}
  className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300"
 >
@@ -389,7 +391,7 @@ const currentImages =
 </div>
 
 <div
-  ref={sliderRef}
+  ref={relatedRef}
   className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory px-1"
 >
   {RELATED.map((item, i) => (
@@ -400,19 +402,58 @@ const currentImages =
 </div>
 </div>
 
-{recent.length > 1 && (
-  <div className="mt-24">
-    <h2 className="heading-serif text-[26px] mb-10 text-center">
-      Recently Viewed
-    </h2>
+{/* 🔥 PREMIUM RECENTLY VIEWED */}
+{(() => {
+  const filteredRecent = recent.filter(p => p.id !== product.id)
 
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-      {recent.slice(1).map((item, i) => (
-        <ProductCard key={item.id} product={item} idx={i} />
-      ))}
+  if (filteredRecent.length === 0) return null
+
+  return (
+    <div className="mt-20 px-6 lg:px-10">
+
+      {/* HEADER */}
+      <div className="text-center mb-10">
+        <h2 className="heading-serif italic text-[26px] md:text-[32px] tracking-[0.04em]">
+          Recently Viewed
+        </h2>
+        <div className="w-10 h-[2px] bg-[#cc0000] mx-auto mt-3"></div>
+      </div>
+
+      {/* ARROWS */}
+      <div className="flex justify-end gap-3 mb-4">
+        <button
+          onClick={() => recentRef.current?.scrollBy({ left: -250, behavior: 'smooth' })}
+          className="hidden sm:flex w-10 h-10 rounded-full bg-white shadow-md items-center justify-center hover:bg-black hover:text-white transition"
+        >
+          ‹
+        </button>
+
+        <button
+          onClick={() => recentRef.current?.scrollBy({ left: 250, behavior: 'smooth' })}
+          className="hidden sm:flex w-10 h-10 rounded-full bg-white shadow-md items-center justify-center hover:bg-black hover:text-white transition"
+        >
+          ›
+        </button>
+      </div>
+
+      {/* SLIDER */}
+      <div
+        ref={recentRef}
+        className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory"
+      >
+        {filteredRecent.map((item, i) => (
+          <div
+            key={item.id}
+            className="min-w-[180px] sm:min-w-[220px] max-w-[180px] sm:max-w-[220px] snap-start"
+          >
+            <ProductCard product={item} idx={i} />
+          </div>
+        ))}
+      </div>
+
     </div>
-  </div>
-)}
+  )
+})()}
 
       {/* 🔥 FULLSCREEN ZOOM */}
 {zoomOpen && (

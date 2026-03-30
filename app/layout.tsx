@@ -7,6 +7,8 @@ import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
 import WishlistDrawer from '@/components/WishlistDrawer'
 import BottomNav from '@/components/BottomNav'
+import { QuickViewProvider } from '@/context/QuickViewContext'
+import QuickViewModalWrapper from '@/components/QuickViewModalWrapper'
 
 /* BODY FONT */
 const poppins = Poppins({
@@ -50,6 +52,8 @@ export default function RootLayout({
 
       <body className="bg-white text-[#111] antialiased font-sans">
 
+        <QuickViewProvider>
+
         {/* HEADER */}
         <Header />
 
@@ -65,7 +69,8 @@ export default function RootLayout({
         {/* DRAWERS */}
         <CartDrawer />
         <WishlistDrawer />
-
+        <QuickViewModalWrapper />
+</QuickViewProvider>
       </body>
     </html>
   )

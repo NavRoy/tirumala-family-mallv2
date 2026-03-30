@@ -132,7 +132,7 @@ export default function ShopPage() {
                   price: product.price,
                 originalPrice: product.mrp || undefined,
                   image: product.img,
-                  href: `/product/${product.id}`,
+                  href: `/products/${product.id}`,
                 }}
               />
             ))}

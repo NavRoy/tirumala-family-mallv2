@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Heart, Eye } from 'lucide-react'
 import { useState } from 'react'
+import { useQuickView } from '@/context/QuickViewContext'
 
 /* Pastel placeholder colors per index */
 const PLACEHOLDER_COLORS = [
@@ -11,10 +12,11 @@ const PLACEHOLDER_COLORS = [
 
 export interface Product {
   id: string; name: string; price: number; originalPrice?: number
-  image: string; href: string; badge?: string; sold?: boolean; colorIdx?: number
+  image: string; href: string; badge?: string; sold?: boolean; colorIdx?: number;  hasSizes?: boolean
 }
 
 export default function ProductCard({ product, idx = 0 }: { product: Product; idx?: number }) {
+  const { openQuickView } = useQuickView()
   const [wished, setWished] = useState(false)
   const [hovered, setHovered] = useState(false)
 
@@ -47,9 +49,21 @@ transition-all duration-300">
 
         {/* Hover actions */}
         <div className={`absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md py-3  rounded-t-xl flex items-center justify-center gap-3 transition-all duration-300 ${hovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-          <Link href={product.href} className="flex items-center gap-1.5 text-[11px] font-medium text-gray-700 hover:text-gray-900 tracking-wide">
-            <Eye size={12} /> Quick View
-          </Link>
+         <button
+  onClick={(e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (window.innerWidth < 768) {
+      window.location.href = product.href
+    } else {
+      openQuickView(product)
+    }
+  }}
+  className="flex items-center gap-1.5 text-[11px] font-medium text-gray-700 hover:text-gray-900 tracking-wide"
+>
+  <Eye size={12} /> Quick View
+</button>
         </div>
 
         {/* Top badges */}

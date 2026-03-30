@@ -10,7 +10,7 @@ export default function Footer() {
       {/* 🔥 PREMIUM GLOW */}
       <div className="absolute w-[600px] h-[600px] bg-[#CC0000]/10 blur-[200px] top-[-250px] left-[-200px] pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-10 pt-16 md:pt-20 pb-10 md:pb-12">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-10 pt-16 md:pt-20 pb-24 md:pb-12">
 
         {/* 🔥 GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14 mb-14 md:mb-16">
